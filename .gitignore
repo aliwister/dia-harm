@@ -1,0 +1,22 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+.venv.old
+inputs
+.ipynb_checkpoints
+sample
+.python-version
+F3_Consistency.csv
+hello.py
+*.sh
+*.out
+*.zip
+README.md
+tests.py
