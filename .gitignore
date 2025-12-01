@@ -18,5 +18,6 @@ hello.py
 *.sh
 *.out
 *.zip
+*.toml
 README.md
 tests.py
