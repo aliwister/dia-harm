@@ -21,3 +21,5 @@ hello.py
 *.toml
 README.md
 tests.py
+
+f3/skip_f3
