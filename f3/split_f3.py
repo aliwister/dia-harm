@@ -1,9 +1,15 @@
 import pandas as pd
 import numpy as np
 import re
+import emoji
 
 df = pd.read_csv("/home/ali.lawati/dia-guard/inputs/F3_Consistency.csv")
 url_pattern = r'https?://\S+|www\.\S+'
+
+def replace_emojis(text, replacement=''):
+    return emoji.replace_emoji(text, replace=replacement)
+
+chars_to_strip = " '\""
 
 # Apply the regex to the 'text_column' to remove URLs
 # The `flags=re.IGNORECASE` makes the matching case-insensitive.
@@ -11,11 +17,14 @@ df['human_content'] = df['human_content'].str.replace(url_pattern, '', regex=Tru
 df['ai_content'] = df['ai_content'].str.replace(url_pattern, '', regex=True, flags=re.IGNORECASE)
 
 # Optional: Remove any extra whitespace that might be left after removing URLs
-df['human_content'] = df['human_content'].str.strip().str.replace(r'\s+', ' ', regex=True)
-df['ai_content'] = df['ai_content'].str.strip().str.replace(r'\s+', ' ', regex=True)
+df['human_content'] = df['human_content'].str.strip(chars_to_strip).str.replace(r'\s+', ' ', regex=True)
+df['ai_content'] = df['ai_content'].str.strip(chars_to_strip).str.replace(r'\s+', ' ', regex=True)
+
+df['human_content'] = df['human_content'].apply(lambda x: replace_emojis(x, replacement=''))
+df['ai_content'] = df['ai_content'].apply(lambda x: replace_emojis(x, replacement=''))
 
 
-num_files = 10
+num_files = 12
 total_rows = len(df)
 rows_per_file = total_rows // num_files
 remainder = total_rows % num_files
