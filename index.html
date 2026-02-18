@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="title" content="DIA-HARM: Harmful Content Detection Robustness Across 50 English Dialects">
+  <meta name="description" content="DIA-HARM is the first benchmark for evaluating disinformation detection robustness across 50 English dialects, revealing systematic vulnerabilities in current detection systems.">
+  <meta name="keywords" content="harmful content detection, dialect robustness, disinformation, NLP, English dialects, Multi-VALUE, cross-dialectal transfer">
+  <meta name="author" content="Jason Lucas, Hala Khalid Al Nuaimi, Srecko Joksimovic, Rebecca Hwa">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="PIKE Research Lab, Penn State University">
+  <meta property="og:title" content="DIA-HARM: Harmful Content Detection Robustness Across 50 English Dialects">
+  <meta property="og:description" content="The first benchmark for evaluating disinformation detection robustness across 50 English dialects with 195K+ samples.">
+  <meta property="og:url" content="https://jsl5710.github.io/dia-harm">
+  <meta property="article:published_time" content="2026-02-01T00:00:00.000Z">
+  <meta property="article:author" content="Jason Lucas">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="harmful content detection">
+  <meta property="article:tag" content="dialect robustness">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DIA-HARM: Harmful Content Detection Robustness Across 50 English Dialects">
+  <meta name="twitter:description" content="The first benchmark for evaluating disinformation detection robustness across 50 English dialects with 195K+ samples.">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="DIA-HARM: Harmful Content Detection Robustness Across 50 English Dialects">
+  <meta name="citation_author" content="Lucas, Jason">
+  <meta name="citation_author" content="Al Nuaimi, Hala Khalid">
+  <meta name="citation_author" content="Joksimovic, Srecko">
+  <meta name="citation_author" content="Hwa, Rebecca">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="Under Review &mdash; ACL 2026">
+
+  <meta name="theme-color" content="#2563eb">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <title>DIA-HARM: Harmful Content Detection Robustness Across 50 English Dialects | ACL 2026</title>
+
+  <!-- Critical CSS -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <!-- Non-critical CSS -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "DIA-HARM: Harmful Content Detection Robustness Across 50 English Dialects",
+    "description": "The first benchmark for evaluating disinformation detection robustness across 50 English dialects with 195K+ samples and 16 detection models.",
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Jason Lucas",
+        "affiliation": { "@type": "Organization", "name": "Penn State University" }
+      },
+      {
+        "@type": "Person",
+        "name": "Hala Khalid Al Nuaimi",
+        "affiliation": { "@type": "Organization", "name": "University of South Australia" }
+      },
+      {
+        "@type": "Person",
+        "name": "Srecko Joksimovic",
+        "affiliation": { "@type": "Organization", "name": "University of South Australia" }
+      },
+      {
+        "@type": "Person",
+        "name": "Rebecca Hwa",
+        "affiliation": { "@type": "Organization", "name": "University of Pittsburgh" }
+      }
+    ],
+    "datePublished": "2026",
+    "publisher": {
+      "@type": "Organization",
+      "name": "ACL 2026 (Under Review)"
+    },
+    "url": "https://jsl5710.github.io/dia-harm",
+    "keywords": ["harmful content detection", "dialect robustness", "disinformation", "English dialects", "NLP", "cross-dialectal transfer"],
+    "isAccessibleForFree": true
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- More Works Dropdown -->
+  <div class="more-works-container">
+    <button class="more-works-btn" onclick="toggleMoreWorks()">
+      <i class="fas fa-flask"></i> More Works <span class="dropdown-arrow"><i class="fas fa-chevron-down"></i></span>
+    </button>
+    <div class="more-works-dropdown" id="moreWorksDropdown">
+      <div class="dropdown-header">
+        <h4>Related Works</h4>
+        <button class="close-btn" onclick="toggleMoreWorks()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="works-list">
+        <a class="work-item" href="https://jsl5710.github.io/BLUFF/" target="_blank">
+          <div class="work-info">
+            <h5>BLUFF</h5>
+            <p>Benchmarking in Low-resoUrce Languages for detecting Falsehoods and Fake news</p>
+            <span class="work-venue">Under Review 2026</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main-content">
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">DIA-HARM: Harmful Content Detection Robustness Across 50 English Dialects</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://www.jasonslucas.com/" target="_blank">Jason Lucas</a><sup>1</sup>,</span>
+              <span class="author-block">
+                Hala Khalid Al Nuaimi<sup>2</sup>,</span>
+              <span class="author-block">
+                Srecko Joksimovic<sup>2</sup>,</span>
+              <span class="author-block">
+                <a href="https://people.cs.pitt.edu/~hwa/" target="_blank">Rebecca Hwa</a><sup>3</sup>
+              </span>
+            </div>
+
+            <div class="is-size-6 publication-authors" style="margin-top: 0.5rem;">
+              <span class="author-block"><sup>1</sup>Penn State University, USA &nbsp;&nbsp;</span>
+              <span class="author-block"><sup>2</sup>University of South Australia, Australia &nbsp;&nbsp;</span>
+              <span class="author-block"><sup>3</sup>University of Pittsburgh, USA</span>
+            </div>
+
+            <div class="is-size-5 publication-authors" style="margin-top: 0.5rem;">
+              <span class="author-block">Under Review &mdash; ACL 2026</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- GitHub Repo -->
+                <span class="link-block">
+                  <a href="https://github.com/aliwister/dia-harm" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code &amp; Data</span>
+                </a>
+              </span>
+
+              <!-- Paper PDF - uncomment when available
+              <span class="link-block">
+                <a href="#" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="fas fa-file-pdf"></i>
+                </span>
+                <span>Paper</span>
+              </a>
+            </span>
+            -->
+
+            <!-- arXiv - uncomment when available
+            <span class="link-block">
+              <a href="#" target="_blank"
+              class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                <i class="ai ai-arxiv"></i>
+              </span>
+              <span>arXiv</span>
+            </a>
+          </span>
+          -->
+
+          </div>
+        </div>
+
+        <!-- Resource description -->
+        <div class="column is-10 is-offset-1" style="margin-top: 1.5rem;">
+          <div class="notification is-info is-light" style="border-radius: 8px; padding: 1.25rem 1.5rem;">
+            <p class="has-text-centered" style="margin-bottom: 0;">
+              <strong><i class="fab fa-github"></i> Code &amp; Data</strong> contains the DIA-HARM framework, D3 corpus (195K+ dialectal disinformation samples across 50 English dialects), D-PURIFY validation pipeline, and evaluation tools.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- End Hero -->
+
+
+<!-- Overview Figure -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="static/images/dia-harm_overview.png" alt="DIA-HARM Framework Overview: Dialect robustness vulnerabilities in disinformation detection" style="width:100%; border-radius: 8px;"/>
+      <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
+        <strong>DIA-HARM Overview.</strong> Left: Disinformation in Standard American English (SAE) is transformed into 50 dialectal variants using Multi-VALUE rule-based transformations. Right: AI defense systems show inconsistent behavior&mdash;detectors correctly classify SAE content but exhibit degraded performance on dialectal variants, with fine-tuned models outperforming zero-shot approaches.
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- End Overview -->
+
+
+<!-- Abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Harmful content detectors&mdash;particularly disinformation classifiers&mdash;are predominantly developed and evaluated on Standard American English (SAE), leaving their robustness to dialectal variation unexplored. We present <strong>DIA-HARM</strong>, the first benchmark for evaluating disinformation detection robustness across <strong>50 English dialects</strong> spanning U.S., British, African, Caribbean, and Asia-Pacific varieties. Using Multi-VALUE's linguistically-grounded transformations, we introduce <strong>D3</strong> (Dialectal Disinformation Detection), a corpus of <strong>195K+ samples</strong> derived from established disinformation benchmarks. Our evaluation of <strong>16 detection models</strong> reveals systematic vulnerabilities: human-written dialectal content degrades detection by <strong>1.4&ndash;3.6% F1</strong>, while AI-generated content remains stable. Fine-tuned transformers substantially outperform zero-shot LLMs (<strong>96.6% vs. 78.3%</strong> best-case F1), with some models exhibiting catastrophic failures exceeding <strong>33% degradation</strong> on mixed content. Cross-dialectal transfer analysis across <strong>2,450 dialect pairs</strong> shows that multilingual models (mDeBERTa: <strong>97.2% average F1</strong>) generalize effectively, while monolingual models like RoBERTa and XLM-RoBERTa fail on dialectal inputs. These findings demonstrate that current disinformation detectors may systematically disadvantage hundreds of millions of non-SAE speakers worldwide. We release the DIA-HARM framework, D3 corpus, and evaluation tools.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Abstract -->
+
+
+<!-- Key Highlights -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Key Highlights</h2>
+    <div class="columns is-multiline">
+      <div class="column is-4">
+        <div class="box has-text-centered">
+          <p class="title is-1" style="color: #2563eb;">50</p>
+          <p class="subtitle is-5">English Dialects</p>
+          <p class="is-size-7">U.S., British, African, Caribbean, and Asia-Pacific varieties</p>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="box has-text-centered">
+          <p class="title is-1" style="color: #2563eb;">195K+</p>
+          <p class="subtitle is-5">Samples in D3 Corpus</p>
+          <p class="is-size-7">Derived from 9 established SAE disinformation benchmarks</p>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="box has-text-centered">
+          <p class="title is-1" style="color: #2563eb;">16</p>
+          <p class="subtitle is-5">Detection Models</p>
+          <p class="is-size-7">10 fine-tuned + 5 zero-shot LLMs + 1 in-context learning</p>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="box has-text-centered">
+          <p class="title is-1" style="color: #2563eb;">189</p>
+          <p class="subtitle is-5">Morphosyntactic Rules</p>
+          <p class="is-size-7">12 grammatical categories from eWAVE atlas via Multi-VALUE</p>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="box has-text-centered">
+          <p class="title is-1" style="color: #2563eb;">2,450</p>
+          <p class="subtitle is-5">Dialect Pairs</p>
+          <p class="is-size-7">Cross-dialectal transfer analysis for generalization</p>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="box has-text-centered">
+          <p class="title is-1" style="color: #2563eb;">97.2%</p>
+          <p class="subtitle is-5">Best Avg F1</p>
+          <p class="is-size-7">mDeBERTa: best cross-dialect generalization</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Key Highlights -->
+
+
+<!-- Research Questions -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Research Questions</h2>
+    <div class="content">
+      <table class="table is-bordered is-striped is-fullwidth">
+        <thead>
+          <tr>
+            <th>RQ</th>
+            <th>Question</th>
+            <th>Key Finding</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>SQ1</strong></td>
+            <td>How robust are SAE-trained detectors when applied to unseen dialectal inputs?</td>
+            <td>Human-written dialectal content degrades detection by 1.4&ndash;3.6% F1; AI-generated content remains stable</td>
+          </tr>
+          <tr>
+            <td><strong>SQ2</strong></td>
+            <td>Does dialect-aware training improve robustness?</td>
+            <td>Fine-tuned transformers (96.6% F1) substantially outperform zero-shot LLMs (78.3% best-case F1)</td>
+          </tr>
+          <tr>
+            <td><strong>SQ3</strong></td>
+            <td>How well does performance transfer across 2,450 dialect pairs?</td>
+            <td>Multilingual models (mDeBERTa: 97.2% avg F1) generalize; monolingual models fail on dialectal inputs</td>
+          </tr>
+          <tr>
+            <td><strong>SQ4</strong></td>
+            <td>Which model architectures are most robust to dialectal variation?</td>
+            <td>Zero-shot LLMs show up to 27% degradation; some exhibit catastrophic failures exceeding 33%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<!-- End Research Questions -->
+
+
+<!-- Methodology -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Methodology</h2>
+
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h3 class="title is-4">Multi-VALUE Dialect Transformations</h3>
+        <div class="content has-text-justified">
+          <p>
+            DIA-HARM leverages <strong>Multi-VALUE</strong>'s linguistically-grounded, rule-based transformations to convert Standard American English text into 50 dialectal variants. The transformation system applies <strong>189 morphosyntactic rules</strong> spanning <strong>12 grammatical categories</strong> derived from the electronic World Atlas of Varieties of English (eWAVE). These rules capture authentic dialectal features&mdash;not errors, but legitimate linguistic systems&mdash;including variations in verb morphology, negation patterns, pronoun usage, article systems, and syntactic structures.
+          </p>
+        </div>
+
+        <h3 class="title is-4">D3: Dialectal Disinformation Detection Corpus</h3>
+        <div class="content has-text-justified">
+          <p>
+            The D3 corpus is constructed by transforming <strong>9 established SAE disinformation benchmarks</strong> into 50 dialectal variants, yielding <strong>195K+ samples</strong>. Source benchmarks span diverse disinformation types including fact-checked claims, propaganda, satire, and AI-generated text. Each sample preserves the original semantic content while altering morphosyntactic structure according to dialect-specific rules, creating natural perturbations that test detector robustness without changing the underlying truthfulness of the content.
+          </p>
+        </div>
+
+        <h3 class="title is-4">D-PURIFY: Quality Validation Pipeline</h3>
+        <div class="content has-text-justified">
+          <p>
+            All dialectal transformations undergo quality validation through <strong>D-PURIFY</strong>, ensuring that transformed samples faithfully represent target dialect features while preserving semantic content. The pipeline filters out malformed transformations, verifies grammatical category coverage, and validates that dialect-specific rules are correctly applied. This ensures that performance differences across dialects reflect genuine detector vulnerabilities rather than transformation artifacts.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Methodology -->
+
+
+<!-- Detection Models -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Detection Models Evaluated</h2>
+    <div class="content has-text-justified" style="margin-bottom: 1.5rem;">
+      <p>DIA-HARM evaluates <strong>16 detection models</strong> spanning three paradigms to provide a comprehensive assessment of dialectal robustness:</p>
+    </div>
+    <div class="content">
+      <div class="columns">
+        <div class="column is-4">
+          <h4 class="title is-5">Fine-Tuned Encoders (10)</h4>
+          <ul>
+            <li>BERT</li>
+            <li>RoBERTa</li>
+            <li>DeBERTa-v3</li>
+            <li>mDeBERTa-v3</li>
+            <li>XLM-RoBERTa</li>
+            <li>ELECTRA</li>
+            <li>DistilBERT</li>
+            <li>ALBERT</li>
+            <li>S-BERT (LaBSE)</li>
+            <li>Longformer</li>
+          </ul>
+        </div>
+        <div class="column is-4">
+          <h4 class="title is-5">Zero-Shot LLMs (5)</h4>
+          <ul>
+            <li>GPT-4o</li>
+            <li>GPT-4o-mini</li>
+            <li>Gemini 2.0 Flash</li>
+            <li>Llama 3.3 70B</li>
+            <li>Qwen 2.5 72B</li>
+          </ul>
+        </div>
+        <div class="column is-4">
+          <h4 class="title is-5">In-Context Learning (1)</h4>
+          <ul>
+            <li>Gemini 2.0 Flash (3-shot)</li>
+          </ul>
+          <br>
+          <h4 class="title is-5">Key Result</h4>
+          <p><strong>mDeBERTa-v3</strong> achieves the best cross-dialect generalization with <strong>97.2% average F1</strong> across all 50 dialects.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Detection Models -->
+
+
+<!-- Key Findings -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Key Findings</h2>
+
+    <div class="columns is-multiline">
+      <div class="column is-6">
+        <div class="box">
+          <h4 class="title is-5"><i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i> Systematic Vulnerability</h4>
+          <p>Human-written dialectal content degrades detection by <strong>1.4&ndash;3.6% F1</strong> across fine-tuned models. While this seems modest, it translates to thousands of missed harmful items at scale, systematically disadvantaging non-SAE speakers.</p>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="box">
+          <h4 class="title is-5"><i class="fas fa-robot" style="color: #2563eb;"></i> LLM Fragility</h4>
+          <p>Zero-shot LLMs exhibit <strong>up to 27% degradation</strong> on dialectal inputs, with some models showing <strong>catastrophic failures exceeding 33%</strong> on mixed human-written and AI-generated content.</p>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="box">
+          <h4 class="title is-5"><i class="fas fa-globe" style="color: #10b981;"></i> Multilingual Advantage</h4>
+          <p>Multilingual pre-trained models (mDeBERTa: <strong>97.2% avg F1</strong>) generalize effectively across dialects, while monolingual models like RoBERTa and XLM-RoBERTa fail on dialectal inputs.</p>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="box">
+          <h4 class="title is-5"><i class="fas fa-exchange-alt" style="color: #f59e0b;"></i> Cross-Dialect Transfer</h4>
+          <p>Analysis of <strong>2,450 dialect pairs</strong> reveals that fine-tuned transformers (<strong>96.6% F1</strong>) substantially outperform zero-shot LLMs (<strong>78.3% best-case F1</strong>), highlighting the importance of dialect-aware training.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Key Findings -->
+
+
+<!-- Dialect Coverage -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Dialect Coverage</h2>
+    <div class="content has-text-justified" style="margin-bottom: 1.5rem;">
+      <p>DIA-HARM covers <strong>50 English dialect varieties</strong> from diverse geographic and sociolinguistic backgrounds:</p>
+    </div>
+    <div class="content">
+      <div class="columns">
+        <div class="column is-4">
+          <h4 class="title is-6">Americas</h4>
+          <ul class="is-size-7">
+            <li>Appalachian English</li>
+            <li>Chicano English</li>
+            <li>Colloquial American English</li>
+            <li>Newfoundland English</li>
+            <li>Ozark English</li>
+            <li>SE American Enclave Dialects</li>
+            <li>Earlier/Rural/Urban AAVE</li>
+            <li>Bahamian English</li>
+            <li>Jamaican English</li>
+          </ul>
+          <h4 class="title is-6" style="margin-top: 1rem;">Asia-Pacific</h4>
+          <ul class="is-size-7">
+            <li>Australian / Vernacular English</li>
+            <li>New Zealand English</li>
+            <li>Singapore English (Singlish)</li>
+            <li>Hong Kong English</li>
+            <li>Indian English</li>
+            <li>Malaysian English</li>
+            <li>Philippine English</li>
+            <li>Pakistani English</li>
+            <li>Sri Lankan English</li>
+            <li>Fiji English (Acrolectal/Basilectal)</li>
+          </ul>
+        </div>
+        <div class="column is-4">
+          <h4 class="title is-6">British Isles</h4>
+          <ul class="is-size-7">
+            <li>Channel Islands English</li>
+            <li>East Anglian English</li>
+            <li>English (North/Southeast/Southwest)</li>
+            <li>Irish English</li>
+            <li>Manx English</li>
+            <li>Maltese English</li>
+            <li>Orkney &amp; Shetland English</li>
+            <li>Scottish English</li>
+            <li>Welsh English</li>
+          </ul>
+        </div>
+        <div class="column is-4">
+          <h4 class="title is-6">Africa</h4>
+          <ul class="is-size-7">
+            <li>Aboriginal English</li>
+            <li>Black South African English</li>
+            <li>Cameroon English</li>
+            <li>Cape Flats English</li>
+            <li>Ghanaian English</li>
+            <li>Indian South African English</li>
+            <li>Kenyan English</li>
+            <li>Liberian Settler English</li>
+            <li>Nigerian English</li>
+            <li>Tanzanian English</li>
+            <li>Ugandan English</li>
+            <li>White South African English</li>
+            <li>White Zimbabwean English</li>
+          </ul>
+          <h4 class="title is-6" style="margin-top: 1rem;">Atlantic</h4>
+          <ul class="is-size-7">
+            <li>Falkland Islands English</li>
+            <li>St Helena English</li>
+            <li>Tristan da Cunha English</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Dialect Coverage -->
+
+
+<!-- BibTeX -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Citation</h2>
+    <p>Paper currently under review (ACL 2026). Citation will be provided upon acceptance.</p>
+    <!--
+    <div class="bibtex-header">
+      <h2 class="title is-4" style="margin-bottom: 0;">BibTeX</h2>
+      <button class="copy-bibtex-btn" onclick="copyBibTeX()">
+        <i class="fas fa-copy"></i>
+        <span class="copy-text">Copy</span>
+      </button>
+    </div>
+    <pre><code id="bibtex-code">@inproceedings{lucas2026diaharm,
+  title={DIA-HARM: Harmful Content Detection Robustness Across 50 English Dialects},
+  author={Lucas, Jason and Al Nuaimi, Hala Khalid and Joksimovic, Srecko and Hwa, Rebecca},
+  booktitle={Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (ACL)},
+  year={2026}
+}</code></pre>
+    -->
+  </div>
+</section>
+<!-- End BibTeX -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </main>
+  </body>
+</html>
